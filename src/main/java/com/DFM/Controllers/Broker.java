@@ -1,6 +1,6 @@
 package com.DFM.Controllers;
 
-import com.DFM.Handlers.*;
+import com.DFM.Handlers.WordPressHandler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -48,7 +48,6 @@ public class Broker {
     }
 
 
-
     @DELETE
     @Path("/wordpress/posts/attributes")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,7 +57,6 @@ public class Broker {
                                      @HeaderParam("remoteEndpoint") String remoteEndpoint) {
         return WordPressHandler.DeleteAttributes(redisType, redisKey, remoteEndpoint);
     }
-
 
 
     @POST

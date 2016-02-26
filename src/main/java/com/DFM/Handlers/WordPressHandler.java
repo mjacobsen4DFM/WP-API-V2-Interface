@@ -1,14 +1,12 @@
 package com.DFM.Handlers;
 
 import com.DFM.Clients.*;
-import com.DFM.Interfaces.*;
+import com.DFM.Interfaces.WordPressInterface;
 
 import javax.ws.rs.core.Response;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +19,7 @@ public class WordPressHandler {
     public static Response PostPost(String redisType,
                                     String redisKey,
                                     String remoteEndpoint,
-                                    InputStream incomingData){
+                                    InputStream incomingData) {
         StringBuilder Builder = new StringBuilder();
         Map<String, String> mapResult = new HashMap<String, String>();
         try {
@@ -44,7 +42,7 @@ public class WordPressHandler {
                     .build();
         }
 
-        if(WebClient.isBad(Integer.parseInt(mapResult.get("code")))){
+        if (WebClient.isBad(Integer.parseInt(mapResult.get("code")))) {
             return Response.status(500)
                     .header("error", mapResult.get("error"))
                     .entity(mapResult.get("error"))
@@ -77,7 +75,7 @@ public class WordPressHandler {
                     .build();
         }
 
-        if(WebClient.isBad(Integer.parseInt(mapResult.get("code")))){
+        if (WebClient.isBad(Integer.parseInt(mapResult.get("code")))) {
             return Response.status(500)
                     .header("error", mapResult.get("error"))
                     .build();
@@ -89,7 +87,6 @@ public class WordPressHandler {
                 .entity(mapResult.get("body"))
                 .build();
     }
-
 
 
     public static Response PostMedia(String redisType,
@@ -117,7 +114,7 @@ public class WordPressHandler {
                     .build();
         }
 
-        if(WebClient.isBad(Integer.parseInt(mapResult.get("code")))){
+        if (WebClient.isBad(Integer.parseInt(mapResult.get("code")))) {
             return Response.status(500)
                     .header("error", mapResult.get("error"))
                     .build();
@@ -129,7 +126,6 @@ public class WordPressHandler {
                 .entity(mapResult.get("result"))
                 .build();
     }
-
 
 
     public static Response DeleteAttributes(String redisType,
@@ -149,7 +145,7 @@ public class WordPressHandler {
                     .build();
         }
 
-        if(WebClient.isBad(Integer.parseInt(mapResult.get("code")))){
+        if (WebClient.isBad(Integer.parseInt(mapResult.get("code")))) {
             return Response.status(500)
                     .header("error", mapResult.get("error"))
                     .build();
@@ -165,7 +161,7 @@ public class WordPressHandler {
     //Sets default author
     public static Response PostDefaultAuthor(String redisType,
                                              String redisKey,
-                                             String remoteEndpoint){
+                                             String remoteEndpoint) {
         Map<String, String> mapResult = new HashMap<String, String>();
         try {
             RedisClient redisClient = new RedisClient(redisType);
@@ -181,7 +177,7 @@ public class WordPressHandler {
                     .build();
         }
 
-        if(WebClient.isBad(Integer.parseInt(mapResult.get("code")))){
+        if (WebClient.isBad(Integer.parseInt(mapResult.get("code")))) {
             return Response.status(500)
                     .header("error", mapResult.get("error"))
                     .build();
@@ -213,7 +209,6 @@ public class WordPressHandler {
             throw new Exception("WordPressClient type is unknown. Access type requested: " + subscriberMap.get("AC"));
         }
     }
-
 
 
 }

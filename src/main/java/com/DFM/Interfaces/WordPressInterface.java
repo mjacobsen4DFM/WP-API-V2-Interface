@@ -17,24 +17,23 @@ public class WordPressInterface {
         String postLocation = postBaseEndpoint;
         String wpPostId = "";
 
-        try{
+        try {
             resultMap = wpc.post(postLocation, json);
-            if(WebClient.isOK(Integer.parseInt(resultMap.get("code").trim()))){
+            if (WebClient.isOK(Integer.parseInt(resultMap.get("code").trim()))) {
                 wpPostId = JsonUtil.getValue(resultMap.get("result"), "id");
                 postLocation = resultMap.get("location");
             }
 
-            if(WebClient.isBad(Integer.parseInt(resultMap.get("code").trim()))){
+            if (WebClient.isBad(Integer.parseInt(resultMap.get("code").trim()))) {
                 resultMap = wpc.post(postLocation, json);
-                if(WebClient.isBad(Integer.parseInt(resultMap.get("code").trim()))){
+                if (WebClient.isBad(Integer.parseInt(resultMap.get("code").trim()))) {
                     //String errMsg = "Fatal post error for " + _subscriberMap.get("name") + " at " +  postLocation + " for contentKey: " + _contentKey + " from feedKey: " + _feedKey + " title:" + json.getTitle() + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result") + " JSON: " + JsonUtil.toJSON(json);
                     String errMsg = "Fatal post error for " + postLocation + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result") + " JSON: " + JsonUtil.toJSON(json);
                     resultMap.put("code", "500");
                     resultMap.put("error", errMsg);
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             //String errMsg = "Fatal image post error for: " + imageName + "(" + image.getGuid() + ")" + " into Subscriber: " + _subscriberMap.get("name") + " at: " + postLocation + " for contentKey: " + _contentKey + " from feedKey: " + _feedKey + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
             String errMsg = "Fatal POST error for: " + postBaseEndpoint + " Error: " + e.getMessage() + " Cause: " + e.getCause();
             resultMap.put("code", "500");
@@ -51,7 +50,7 @@ public class WordPressInterface {
         String body;
         String postLocation = postBaseEndpoint;
         String wpPostId = "";
-        try{
+        try {
             body = wpc.get(postLocation);
             wpPostId = "99999"; //JsonUtil.getValue(body, "id");
             postLocation = postBaseEndpoint;
@@ -60,8 +59,7 @@ public class WordPressInterface {
             resultMap.put("wpPostId", wpPostId);
             resultMap.put("postLocation", postLocation);
             resultMap.put("body", body);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             //String errMsg = "Fatal image post error for: " + imageName + "(" + image.getGuid() + ")" + " into Subscriber: " + _subscriberMap.get("name") + " at: " + postLocation + " for contentKey: " + _contentKey + " from feedKey: " + _feedKey + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
             String errMsg = "Fatal GET error for: " + postBaseEndpoint + " Error: " + e.getMessage() + " Cause: " + e.getCause();
             resultMap.put("code", "500");
@@ -108,8 +106,7 @@ public class WordPressInterface {
                 wpImageId = JsonUtil.getValue(resultMap.get("result"), "id");
                 mediaLocation = mediaBaseEndpoint + wpImageId;
                 //recordImage(wpPostid, wpImageId, image, mediaLocation, "false");
-            }
-            else {
+            } else {
                 String errMsg = "Final image post error for: " + imageName + "(" + imageGuid + ")" + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
                 resultMap.put("code", "500");
                 resultMap.put("error", errMsg);
@@ -144,8 +141,7 @@ public class WordPressInterface {
                     }
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             //String errMsg = "Fatal image post error for: " + imageName + "(" + image.getGuid() + ")" + " into Subscriber: " + _subscriberMap.get("name") + " at: " + postLocation + " for contentKey: " + _contentKey + " from feedKey: " + _feedKey + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
             String errMsg = "Fatal image post error for: " + imageName + " Error: " + e.getMessage() + " Cause: " + e.getCause();
             resultMap.put("code", "500");
@@ -158,16 +154,15 @@ public class WordPressInterface {
 
     public static Map<String, String> postDelete(String deleteEndpoint, WordPressClient wpc) throws Exception {
         Map<String, String> resultMap = new HashMap<String, String>();
-        try{
+        try {
             resultMap = wpc.delete(deleteEndpoint);
-            if(WebClient.isBad(Integer.parseInt(resultMap.get("code").trim()))){
+            if (WebClient.isBad(Integer.parseInt(resultMap.get("code").trim()))) {
                 //String errMsg = "Final subject delete error for generic category: " + badCat + " out of Subscriber: " + _subscriberMap.get("name") + " at: " + postLocation + " for contentKey: " + _contentKey + " from feedKey: " + _feedKey + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
                 String errMsg = "Fatal DELETE error for " + deleteEndpoint + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
                 resultMap.put("code", "500");
                 resultMap.put("error", errMsg);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             //String errMsg = "Fatal image post error for: " + imageName + "(" + image.getGuid() + ")" + " into Subscriber: " + _subscriberMap.get("name") + " at: " + postLocation + " for contentKey: " + _contentKey + " from feedKey: " + _feedKey + " Code: " + resultMap.get("code") + " Response: " + resultMap.get("result");
             String errMsg = "Fatal DELETE error for: " + deleteEndpoint + " Error: " + e.getMessage() + " Cause: " + e.getCause();
             resultMap.put("code", "500");
